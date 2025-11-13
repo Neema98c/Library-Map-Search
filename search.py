@@ -12,7 +12,8 @@
 
 #eg: 
 
-# #What search do you want?
+# What search do you want?
+
 # >>subject
 # What subject?
 # >>physics
@@ -24,22 +25,37 @@ def getCSVData():
     return
 
 def searchTypeCheck(searchTerm, searchType):
+    getCSVData()
     match(searchType):
         case "subject" | 1:
-            searchForSubject(searchTerm)
+            return searchForSubject(searchTerm)
         case "classmark" | 2:
-            searchForClassmark(searchTerm)
+            return searchForClassmark(searchTerm)
         case "location" | 3:
-            searchForLocation(searchTerm)
+            return searchForLocation(searchTerm)
         case "exit" | 4:
             return 0
+        case _:#if none of these options, make the user do it again.
+            return "error", searchType
 
 def searchForSubject(searchTerm):
-    return
+    return "error", searchTerm
 
 def searchForClassmark(searchTerm):
-    return
+    return "error", searchTerm
 
 def searchForLocation(searchTerm):
-    return
+    return "error", searchTerm
+
+def searchLogic():
+    searchTest1 = "physics"
+    searchTest2 = "subject"
+
+    vars = searchTypeCheck(searchTest1, searchTest2)
+
+    if(vars[0]=="error"):
+        error_message1 = "There was an error with your input"
+        error_message2 = "The input: '" + vars[1] + "' confounded the machine"
+
+
 
