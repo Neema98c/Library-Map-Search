@@ -21,41 +21,45 @@
 # Classmark: ?class_mark
 # Location: ?library_loc
 
-def getCSVData():
-    return
+i = True
 
-def searchTypeCheck(searchTerm, searchType):
-    getCSVData()
-    match(searchType):
-        case "subject" | 1:
-            return searchForSubject(searchTerm)
-        case "classmark" | 2:
-            return searchForClassmark(searchTerm)
-        case "location" | 3:
-            return searchForLocation(searchTerm)
-        case "exit" | 4:
-            return 0
-        case _:#if none of these options, make the user do it again.
-            return "error", searchType
+def getCSVData():
+    return "error", "no csv"
 
 def searchForSubject(searchTerm):
-    return "error", searchTerm
+    if (i == True):
+        return searchTerm, "classmark", "location"
+    else:
+        return "error", searchTerm
 
 def searchForClassmark(searchTerm):
-    return "error", searchTerm
+    if (i == True):
+        return "subject", searchTerm, "location"
+    else:
+        return "error", searchTerm
 
 def searchForLocation(searchTerm):
-    return "error", searchTerm
-
-def searchLogic():
-    searchTest1 = "physics"
-    searchTest2 = "subject"
-
-    vars = searchTypeCheck(searchTest1, searchTest2)
-
-    if(vars[0]=="error"):
-        error_message1 = "There was an error with your input"
-        error_message2 = "The input: '" + vars[1] + "' confounded the machine"
+    if (i == True):
+        return "subject", "classmark", searchTerm
+    else:
+        return "error", searchTerm
+    
+def searchTypeCheck(searchType):
+    match(searchType):
+        case "subject" | "1":
+            searchTerm = input("Enter a subject to search for: ")
+            return searchForSubject(searchTerm)
+        case "classmark" | "2":
+            searchTerm = input("Enter a classmark to search for: ")
+            return searchForClassmark(searchTerm)
+        case "location" | "3":
+            searchTerm = input("Enter a location to search for: ")
+            return searchForLocation(searchTerm)
+        case "exit" | "4":
+            exit()
+        case _:#if none of these options, make the user do it again.
+            return "error", searchType
+            
 
 
 
