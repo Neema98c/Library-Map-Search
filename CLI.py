@@ -1,34 +1,59 @@
 #this file will use the logic from search.py and add features that
 #allow users to type commands to interact with the CSV files
+from search import searchTypeCheck
 
 def main():
-    vars=""
+    results=[]
     print("\n"+"From here you can enter either search parameters.")
     print("1. Subject")
     print("2. Classmark")
     print("3. Location")
     print("4. Exit")
     
-    searchType = input("Choose a search area: ")
+    searchType = input("Choose a search area: ").lower()
+    
+    if (searchType == "4" or searchType == "exit"):
+        exit()
+    
+    if (searchType == "3" or searchType == "location"):
+        print("----- MAP -----")
+        print("Top Floor")
+        print("\n---------------")
+        print("| TFTL | TFTR |")
+        print("---------------")
+        print("| TFBL | TFBR |")
+        print("---------------")
+        print("Middle Floor")
+        print("\n---------------")
+        print("| ____ | MFTR |")
+        print("---------------")
+        print("| ____ | ____ |")
+        print("---------------")
+        print("Ground Floor")
+        print("\n---------------")
+        print("| ____ | ____ |")
+        print("---------------")
+        print("| ____ | LAW  |")
+        print("---------------")
+        print("\n Use these location codes when searching.")
+    
     searchTerm = input("Enter your search: ")   
 
-    vars = searchTypeCheck(searchType, searchTerm)
-    error_message1 = "There was an error with your input"
-    error_message2 = ""
+    results = searchTypeCheck(searchType, searchTerm)
 
-    if(vars[0]=="error"):
-        error_message2 = "The input '"+vars[1]+"' confounded the machine"
-        print(error_message1)
-        print(error_message2)
+    if (results == []):
+        print("Search term '"+searchTerm + "' not found with search type: '" + searchType+"'")
+        print("The result may not exist or spelling may be incorrect")
+        main()
+        
+    print("\nResults:")
+    for subject, classmark, location in results:
+        print(" Subject: " + subject.upper() + "  Classmark: "+classmark+"  location: "+location.upper())
+    
+    print("\nWould you like to search for anything else?")
+    againCheck = input("Please type Yes or No: ").lower()
+    if (againCheck=="yes" or againCheck=="1" or againCheck=="y"):
         main()
     else:
-        print("\nSubject is: "+vars[0])
-        print("Classmark is: "+vars[1])
-        print("Location is: "+vars[2])
-        print("\nWould you like to search for more?")
-        againCheck = input("Please type Yes or No: ").lower()
-        if (againCheck=="yes" or againCheck=="1" or againCheck=="y"):
-            main()
-        else:
-            exit()
+        exit()
 main()
