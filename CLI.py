@@ -6,11 +6,13 @@ def main():
     print("\n"+"From here you can enter either search parameters.")
     print("1. Subject")
     print("2. Classmark")
-    print("3. Subject")
+    print("3. Location")
     print("4. Exit")
-    searchTest2 = input("Enter a search term: ")   
+    
+    searchType = input("Choose a search area: ")
+    searchTerm = input("Enter your search: ")   
 
-    vars = searchTypeCheck(searchTest2)
+    vars = searchTypeCheck(searchType, searchTerm)
     error_message1 = "There was an error with your input"
     error_message2 = ""
 
@@ -29,5 +31,4 @@ def main():
             main()
         else:
             exit()
-        
 main()
